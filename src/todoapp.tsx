@@ -5,7 +5,6 @@ import * as ReactRedux from "react-redux";
 
 import * as Model from "./todos";
 
-
 class Item extends React.Component<Model.TodoItem & { flipItem:(id:string)=>void },{}> {
 	render() {
 		return <div key={this.props.id}>
@@ -33,8 +32,8 @@ export default ReactRedux.connect(
 	(state:{todos:Model.TodoState})=>({
 		items:state.todos.items
 	}),
-	(dispatch:Redux.Dispatch<Model.TodoUpdate>)=>({
-		addItem:(item:Model.TodoItem)=>{ dispatch({type:Model.TODOActions.ADD,data:item}) },
-		flipItem:(id:string)=>{ dispatch( {type:Model.TODOActions.FLIP,id} ) }
-	})
+	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators({
+		addItem:(item:Model.TodoItem)=>({type:Model.TODOActions.ADD,data:item}),
+		flipItem:(id:string)=>({type:Model.TODOActions.FLIP,id})
+	},dispatch)
 	)(App);
