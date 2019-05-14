@@ -1,0 +1,25 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "lib": ["es2015","dom"],
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "target":"es6",
+        //"outFile": "Tbundle.js",
+        "sourceMap": true,
+        "outDir": "./dist/",
+        "module": "commonjs",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "allowJs": true
+
+        //        "allowSyntheticDefaultImports": true
+    },
+    "include":[],
+    "files":[
+        "src/todomain.tsx"
+    ]
+}
+

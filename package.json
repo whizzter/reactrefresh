@@ -2,9 +2,13 @@
   "dependencies": {
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.8",
+    "@types/redux": "^3.6.0",
     "awesome-typescript-loader": "^5.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1",
     "webpack": "^4.31.0"
   },
   "devDependencies": {
