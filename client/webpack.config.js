@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports={
 	entry: "./src/todomain.tsx",
 	output: {
-		filename: "./bundle.js"
+		filename: "bundle.js",
+		path: __dirname+"/../public"
 	},
 	devtool: "source-map",
 	resolve: {

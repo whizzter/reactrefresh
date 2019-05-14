@@ -1,0 +1,23 @@
+{
+  "name": "todoserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/servermain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/co": "^4.6.1",
+    "@types/co-body": "0.0.3",
+    "@types/koa": "^2.0.48",
+    "@types/koa-static": "^4.0.1",
+    "co": "^4.6.0",
+    "co-body": "^6.0.0",
+    "coco-sqlite": "github:whizzter/coco-sqlite",
+    "koa": "^2.7.0",
+    "koa-better-router": "^2.1.1",
+    "koa-static": "^5.0.0"
+  }
+}

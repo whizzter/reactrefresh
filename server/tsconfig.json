@@ -1,0 +1,11 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"strict": true,
+		"inlineSourceMap": true,
+		"outDir": "./dist",
+		"target": "es2017"
+	},
+
+	"files": ["servermain.ts"]
+}
