@@ -4,14 +4,15 @@ import * as Redux from "redux";
 import * as ReactRedux from "react-redux";
 
 import App from "./todoapp";
-import * as Model from "./todos";
+//import * as Model from "./todos";
+import {todoUpdate} from "./todoreducers";
 
 // let's create an faux root for the time being to appease React not liking rendering to doc.body
 let root=document.createElement("div");
 document.body.appendChild(root);
 
 
-const store=Redux.createStore( Redux.combineReducers({ todos: Model.todoUpdate }));
+const store=Redux.createStore( Redux.combineReducers({ todos: todoUpdate }));
 
 
 

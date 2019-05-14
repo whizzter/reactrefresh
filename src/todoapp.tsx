@@ -3,10 +3,10 @@ import * as React from "react";
 import * as Redux from "Redux";
 import * as ReactRedux from "react-redux";
 
-import * as Model from "./todos";
-import TodoConst from "./todoconst";
+import * as TodoActions from "./todoactions";
+import {TodoItem,TodoState} from "./tododefs";
 
-class Item extends React.Component<Model.TodoItem & { flipItem:(id:string)=>void },{}> {
+class Item extends React.Component<TodoItem & { flipItem:(id:string)=>void },{}> {
 	render() {
 		return <div key={this.props.id}>
 			<span>[ {this.props.name} ] </span>
@@ -19,7 +19,7 @@ class Item extends React.Component<Model.TodoItem & { flipItem:(id:string)=>void
 }
 
 //let clz=
-class App extends React.Component<{name:string,items:Model.TodoItem[],flipItem:(id:string)=>void},{}> {
+class App extends React.Component<{name:string,items:TodoItem[],flipItem:(id:string)=>void},{}> {
 	render() {
 		return <div>{this.props.name}  app component! <div style={ { backgroundColor:"#fff3f3" } }>{
 			this.props.items.map(
@@ -30,11 +30,8 @@ class App extends React.Component<{name:string,items:Model.TodoItem[],flipItem:(
 
 
 export default ReactRedux.connect(
-	(state:{todos:Model.TodoState})=>({
+	(state:{todos:TodoState})=>({
 		items:state.todos.items
 	}),
-	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators({
-		addItem:(item:Model.TodoItem)=>({type:TodoConst.ADD,data:item}),
-		flipItem:(id:string)=>({type:TodoConst.FLIP,id})
-	},dispatch)
+	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(TodoActions,dispatch)
 	)(App);

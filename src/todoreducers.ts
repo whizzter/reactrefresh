@@ -2,15 +2,9 @@ import * as Redux from "Redux";
 
 import TodoConst from "./todoconst";
 
-export interface TodoItem {
-	id:string,
-	name:string,
-	done:boolean
-}
+import {TodoItem,TodoState} from "./tododefs";
 
-export interface TodoState {
-	items:TodoItem[];
-}
+import {Action} from "./todoactions";
 
 const initialState:TodoState={
 	// some faux starter data before we have any network stuff connected!
@@ -20,19 +14,7 @@ const initialState:TodoState={
 	]
 };
 
-export interface TodoUpdate_Add extends Redux.Action<string> {
-	type:TodoConst.ADD;
-	data:TodoItem;
-
-};
-export interface TodoUpdate_Flip extends Redux.Action<string> {
-	type:TodoConst.FLIP;
-	id:string;
-}
-
-export type TodoUpdate=TodoUpdate_Add|TodoUpdate_Flip;
-
-export function todoUpdate(state=initialState,action:TodoUpdate) {
+export function todoUpdate(state=initialState,action:Action) {
 	switch(action.type) {
 		case TodoConst.ADD : {
 			return {...state,items:[...state.items]}
