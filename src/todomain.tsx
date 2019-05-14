@@ -19,7 +19,6 @@ const store=Redux.createStore( Redux.combineReducers({ todos: Model.todoUpdate }
 
 // render the root
 ReactDOM.render(
-	//<div>Blaff Hello world</div>
 	<ReactRedux.Provider store={store}>
 		<App name="Todo"></App>
 	</ReactRedux.Provider>
