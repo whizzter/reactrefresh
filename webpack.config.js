@@ -9,8 +9,6 @@ module.exports={
 	resolve: {
 		extensions: [".webpack.js",".web.js",".tsx",".ts",".js",".json"]
 	},
-	
-//exports
 
 	module: {
 		rules: [
@@ -29,6 +27,7 @@ module.exports={
 		})
 	],
 
+	// Use externals and CDN to bring down bundle sizes (but production is more important!!)
 	// externals: {
 	// 	"react":"React",
 	// 	"react-dom":"ReactDOM"

@@ -1,5 +1,3 @@
-import * as Redux from "Redux";
-
 import TodoConst from "./todoconst";
 import {TodoItem,TodoState} from "./tododefs";
 
