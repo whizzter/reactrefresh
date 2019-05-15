@@ -9,7 +9,9 @@ import {todoReducer} from "./reducers/todoreducers";
 import * as ReactThunk from "react-thunk";
 
 // add a store
-const store=Redux.createStore( Redux.combineReducers({ todos: todoReducer }),Redux.applyMiddleware( (ReactThunk as any).default ));
+// (ReactThunk as any).default
+console.log((ReactThunk as any).default);
+const store=Redux.createStore( Redux.combineReducers({ todos: todoReducer }),Redux.applyMiddleware(  ));
 
 
 // let's create an faux root for the time being to appease React not liking rendering to doc.body
