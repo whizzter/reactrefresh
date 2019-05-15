@@ -19,7 +19,8 @@
     },
     "include":[],
     "files":[
-        "src/todomain.tsx"
+        "src/todomain.tsx",
+        "typings/react-thunk.d.ts"
     ]
 }
 

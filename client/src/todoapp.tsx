@@ -3,8 +3,8 @@ import * as React from "react";
 import * as Redux from "Redux";
 import * as ReactRedux from "react-redux";
 
-import * as TodoActions from "./todoactions";
-import {TodoItem,TodoState} from "./tododefs";
+import * as TodoActions from "./actions/todoactions";
+import {TodoItem,TodoState} from "./defs/tododefs";
 
 class Item extends React.Component<TodoItem & { flipItem:(id:string)=>void },{}> {
 	render() {
@@ -19,12 +19,16 @@ class Item extends React.Component<TodoItem & { flipItem:(id:string)=>void },{}>
 }
 
 //let clz=
+
+// Transparent box: 		<div style={ {backgroundColor:"#000000", left:0, top:0, right:0, bottom:0, position:"absolute", opacity:0.4} }>Hej</div>
+
 class App extends React.Component<{name:string,items:TodoItem[],flipItem:(id:string)=>void},{}> {
 	render() {
 		return <div>{this.props.name}  app component! <div style={ { backgroundColor:"#fff3f3" } }>{
 			this.props.items.map(
 				(item)=><Item key={item.id} { ...item } flipItem={ this.props.flipItem } ></Item>)
-		}</div></div>
+		}</div>
+		</div>
 	}
 };
 
