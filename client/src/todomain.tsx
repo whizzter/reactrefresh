@@ -6,6 +6,7 @@ import * as ReactRedux from "react-redux";
 import {App,StatusContainer} from "./todoapp";
 import {todoReducer} from "./reducers/todoreducers";
 import {statusReducer} from "./reducers/statusreducer";
+import * as TodoActions from "./actions/todoactions";
 
 import ReduxThunk from "redux-thunk";
 
@@ -24,6 +25,6 @@ ReactDOM.render(
 	<ReactRedux.Provider store={store}>
 		<App name="Todo"></App>
 		<StatusContainer/>
-		
+		<button onClick={ (ev)=>store.dispatch(TodoActions.load() as any)  }>EEh?</button>
 	</ReactRedux.Provider>
 	, root);

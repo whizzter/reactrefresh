@@ -33,11 +33,18 @@ let ItemView=ReactRedux.connect(
 	}
 });
 
-class StatusComponent extends React.Component<{status:StatusState},{}>{ // 
+class StatusComponent extends React.Component<{status:StatusState,retry:(a:any)=>void},{}>{ // 
 	render(){
 		const status=this.props.status;
 		if (status.failedMessage) {
-			// TODO: add actionable content here!!
+			// main div fills screen, with flex we can center children vertically easily
+			// the child then takes care of horizontal align
+			return <div style={ {color:"#ffffff", display:"flex", alignItems:"center",  backgroundColor:"#000000", left:0, top:0, right:0, bottom:0, position:"absolute", opacity:0.4} }>
+				<div style={ {textAlign:"center", left:0, right:0, width:"100%",position:"relative" } }>[{ status.failedMessage }]</div>
+				<button onClick={ (ev)=>{
+					this.props.retry( status.failedAction )
+				} } >Retry?</button>
+			</div>
 		} else if (status.loading) {
 			// main div fills screen, with flex we can center children vertically easily
 			// the child then takes care of horizontal align
@@ -51,10 +58,13 @@ class StatusComponent extends React.Component<{status:StatusState},{}>{ //
 }
 
 import {StatusState} from "./defs/statusdefs";
+import * as StatusActions from "./actions/statusactions";
+
 export let StatusContainer=ReactRedux.connect(
 	(state:{status:StatusState}) => ({
 		status:state.status
-	})
+	}),
+	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(StatusActions,dispatch)
 )(
 	StatusComponent
 );
