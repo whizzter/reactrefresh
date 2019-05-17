@@ -3,16 +3,17 @@ import * as ReactDOM from "react-dom";
 import * as Redux from "redux";
 import * as ReactRedux from "react-redux";
 
-import App from "./todoapp";
+import {App,StatusContainer} from "./todoapp";
 import {todoReducer} from "./reducers/todoreducers";
+import {statusReducer} from "./reducers/statusreducer";
 
-import * as ReactThunk from "react-thunk";
+import ReduxThunk from "redux-thunk";
 
-// add a store
-// (ReactThunk as any).default
-console.log((ReactThunk as any).default);
-const store=Redux.createStore( Redux.combineReducers({ todos: todoReducer }),Redux.applyMiddleware(  ));
-
+// add our stores
+const store=Redux.createStore( Redux.combineReducers({
+	todos: todoReducer,
+	status: statusReducer
+}),Redux.applyMiddleware( ReduxThunk ));
 
 // let's create an faux root for the time being to appease React not liking rendering to doc.body
 let root=document.createElement("div");
@@ -22,5 +23,7 @@ document.body.appendChild(root);
 ReactDOM.render(
 	<ReactRedux.Provider store={store}>
 		<App name="Todo"></App>
+		<StatusContainer/>
+		
 	</ReactRedux.Provider>
 	, root);

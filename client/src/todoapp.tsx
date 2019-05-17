@@ -18,24 +18,59 @@ class Item extends React.Component<TodoItem & { flipItem:(id:string)=>void },{}>
 	}
 }
 
-//let clz=
 
-// Transparent box: 		<div style={ {backgroundColor:"#000000", left:0, top:0, right:0, bottom:0, position:"absolute", opacity:0.4} }>Hej</div>
-
-class App extends React.Component<{name:string,items:TodoItem[],flipItem:(id:string)=>void},{}> {
+let ItemView=ReactRedux.connect(
+	(state:{todos:TodoState})=>({
+		items:state.todos.items
+	}),
+	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(TodoActions,dispatch)
+)(class ItemView extends React.Component<{items:TodoItem[],flipItem:(id:string)=>void},{}> {
 	render() {
-		return <div>{this.props.name}  app component! <div style={ { backgroundColor:"#fff3f3" } }>{
+		return <div style={ { backgroundColor:"#fff3f3" } }>{
 			this.props.items.map(
 				(item)=><Item key={item.id} { ...item } flipItem={ this.props.flipItem } ></Item>)
-		}</div>
+		}</div>;
+	}
+});
+
+class StatusComponent extends React.Component<{status:StatusState},{}>{ // 
+	render(){
+		const status=this.props.status;
+		if (status.failedMessage) {
+			// TODO: add actionable content here!!
+		} else if (status.loading) {
+			// main div fills screen, with flex we can center children vertically easily
+			// the child then takes care of horizontal align
+			return <div style={ {color:"#ffffff", display:"flex", alignItems:"center",  backgroundColor:"#000000", left:0, top:0, right:0, bottom:0, position:"absolute", opacity:0.4} }>
+				<div style={ {textAlign:"center", left:0, right:0, width:"100%",position:"relative" } }>[{ status.loading }]</div>
+			</div>
+		} else {
+			return null; // do not render anyhing as a status
+		}
+	}
+}
+
+import {StatusState} from "./defs/statusdefs";
+export let StatusContainer=ReactRedux.connect(
+	(state:{status:StatusState}) => ({
+		status:state.status
+	})
+)(
+	StatusComponent
+);
+
+export class App extends React.Component<{name:string},{}> {
+	render() {
+		return <div>{this.props.name}  app component! 
+			<ItemView/>
 		</div>
 	}
 };
 
 
-export default ReactRedux.connect(
-	(state:{todos:TodoState})=>({
-		items:state.todos.items
-	}),
-	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(TodoActions,dispatch)
-	)(App);
+// export default ReactRedux.connect(
+// 	(state:{todos:TodoState})=>({
+// 		items:state.todos.items
+// 	}),
+// 	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(TodoActions,dispatch)
+// 	)(App);

@@ -23,6 +23,7 @@ export function todoReducer(state=initialState,action:Action) {
 				return item.id===action.id?{...item,done:!item.done}:item;
 			} )}
 		}
+//		case 
 		default: {
 			console.log("Unhandled action:"+(action as any).type);
 			return state;
