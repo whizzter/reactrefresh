@@ -16,6 +16,9 @@ const store=Redux.createStore( Redux.combineReducers({
 	status: statusReducer
 }),Redux.applyMiddleware( ReduxThunk ));
 
+// dispatch an load action to get data from the server instead of any local data!
+store.dispatch(TodoActions.load() as any);
+
 // let's create an faux root for the time being to appease React not liking rendering to doc.body
 let root=document.createElement("div");
 document.body.appendChild(root);
@@ -25,6 +28,7 @@ ReactDOM.render(
 	<ReactRedux.Provider store={store}>
 		<App name="Todo"></App>
 		<StatusContainer/>
-		<button onClick={ (ev)=>store.dispatch(TodoActions.load() as any)  }>EEh?</button>
 	</ReactRedux.Provider>
 	, root);
+
+// Button to force state reload: <button onClick={ (ev)=>store.dispatch(TodoActions.load() as any)  }>EEh?</button>

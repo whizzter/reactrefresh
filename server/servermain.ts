@@ -6,19 +6,20 @@ import * as CoBody from "co-body";
 const app=new Koa();
 const router=new KoaRouter();
 
+import {TodoItem} from "../shared/sharedtododefs";
+
 let db=(require("coco-sqlite") as CocoSQLite)("db.sqlite");
 
 
 router.get("/hw",async (ctx) => {
 	try {
-		let data=await db.query<{id:number,done:number,text:string}>("SELECT * FROM items");
-		//data.rows[0].
-		console.log(data);
+		let data=await db.query<TodoItem>("SELECT * FROM items");
+		ctx.body={items:data.rows};
 	} catch (err) {
 		console.log(err);
-		ctx.body="Error:"+err;
+		ctx.throw(500,err);
 	}
-	ctx.body="Hello world";
+//	ctx.body="Hello world";
 });
 
 router.get("/api/1/items",async (ctx) =>{

@@ -13,8 +13,11 @@ const initialState:TodoState={
 	]
 };
 
-export function todoReducer(state=initialState,action:Action) {
+export function todoReducer(state=initialState,action:Action):TodoState {
 	switch(action.type) {
+		case TodoConst.LOADED : {
+			return { items:action.items };
+		}
 		case TodoConst.ADD : {
 			return {...state,items:[...state.items]}
 		}
@@ -23,7 +26,6 @@ export function todoReducer(state=initialState,action:Action) {
 				return item.id===action.id?{...item,done:!item.done}:item;
 			} )}
 		}
-//		case 
 		default: {
 			console.log("Unhandled action:"+(action as any).type);
 			return state;
