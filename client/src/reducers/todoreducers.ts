@@ -21,6 +21,15 @@ export function todoReducer(state=initialState,action:Action):TodoState {
 		case TodoConst.ADD : {
 			return {...state,items:[...state.items]}
 		}
+		case TodoConst.UPDATED : {
+			return {...state,items:state.items.map(
+				item=>(
+					(item.id===action.item.id)
+					?action.item
+					:item
+					)
+			)};
+		}
 		case TodoConst.FLIP : {
 			return {...state,items:state.items.map( item=>{
 				return item.id===action.id?{...item,done:!item.done}:item;

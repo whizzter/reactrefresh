@@ -8,11 +8,15 @@
 		"module": "commonjs",
 		"target": "es2017",
 		"allowSyntheticDefaultImports": true,
+
+
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 //		"esModuleInterop": true
 		// "baseUrl": ".",
 		// "paths": {"localtypes":["localtypes"]}
 	},
 
 
-	"files": ["localtypes/koa-better-router.d.ts","localtypes/coco-sqlite.ts","servermain.ts"]
+	"files": ["localtypes/koa-better-router.d.ts","localtypes/coco-sqlite.d.ts","servermain.ts"]
 }

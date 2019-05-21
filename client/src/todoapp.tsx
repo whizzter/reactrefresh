@@ -6,29 +6,31 @@ import * as ReactRedux from "react-redux";
 import * as TodoActions from "./actions/todoactions";
 import {TodoItem,TodoState} from "./defs/tododefs";
 
-class Item extends React.Component<TodoItem & { flipItem:(id:string)=>void },{}> {
+class Item extends React.Component<{ item:TodoItem, updateItem:(item:TodoItem,msg:string)=>void },{}> {
 	render() {
-		return <div key={this.props.id}>
-			<span>[ {this.props.name} ] </span>
-			<input type="checkbox" checked={this.props.done} onChange={(evt)=>{
-				this.props.flipItem(this.props.id)
+		let item=this.props.item;
+		return <div key={item.id}>
+			<span>[ {item.name} ] </span>
+			<input type="checkbox" checked={item.done} onChange={(evt)=>{
+				this.props.updateItem({...item,done:!item.done},"Flipping item flag")
 				// this.props.done=this.props.done !== true;
 			}}></input>
 		</div>
 	}
 }
 
-
 let ItemView=ReactRedux.connect(
 	(state:{todos:TodoState})=>({
 		items:state.todos.items
 	}),
 	(dispatch:Redux.Dispatch)=>Redux.bindActionCreators(TodoActions,dispatch)
-)(class ItemView extends React.Component<{items:TodoItem[],flipItem:(id:string)=>void},{}> {
+)(class ItemView extends React.Component<{items:TodoItem[]} & typeof TodoActions,{}> {
+	// ,flipItem:(id:string)=>void
+	// updateItem(item:TodoItem,msg:string)
 	render() {
 		return <div style={ { backgroundColor:"#fff3f3" } }>{
 			this.props.items.map(
-				(item)=><Item key={item.id} { ...item } flipItem={ this.props.flipItem } ></Item>)
+				(item)=><Item key={item.id} item={ item } updateItem={ this.props.updateItem } ></Item>)
 		}</div>;
 	}
 });
