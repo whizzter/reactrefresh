@@ -8,66 +8,7 @@ import * as EditActions from "./actions/editactions";
 import {TodoItem,TodoState} from "./defs/tododefs";
 import { EditState } from "./defs/editdefs";
 
-type PostEditBoxProps={text:string,onAccept:(val:string)=>void,onBlur:()=>void};
-class PostEditTextBox extends React.Component<PostEditBoxProps,{text:string}> {
-	// componentDidMount(){
-	// 	this.refs.nameInput
-	// }
-	constructor(props:PostEditBoxProps) {
-		super(props)
-		this.state={text:props.text};
-	}
-	render(){
-		const elem=<input autoFocus type="text" value={ this.state.text }
-		onChange={  (evt)=>{
-			this.setState( { text:evt.target.value });
-		} } 
-		onKeyDown={ (evt)=>{
-			if (evt.keyCode===27) {
-				this.props.onBlur();
-			}
-			if (evt.keyCode==13) {
-				this.props.onAccept(this.state.text)
-			}
-		}}
-		onBlur={ (evt)=>{
-			this.props.onAccept(this.state.text)
-			this.props.onBlur();
-		}}
-		></input>
-
-		return elem;
-	}
-}
-
-//(item:TodoItem,msg:string)=>void
-class Item extends React.Component<{ item:TodoItem, edit:EditState, actions:typeof TodoActions & typeof EditActions},{}> {
-	render() {
-		const item=this.props.item;
-		
-		const nameDisplay=(this.props.edit.textEditItemID===item.id
-			?(<PostEditTextBox text={item.name} 
-				onAccept={
-					(data:string)=>{
-						if (data!==item.name)
-							this.props.actions.changeText(item,data)
-					}
-				}
-				onBlur={ ()=>{
-					this.props.actions.editSetTarget(null)
-				} }></PostEditTextBox>)
-			:<span onClick={(evt)=>{
-				this.props.actions.editSetTarget(item.id)
-			}}>[ {item.name} ] </span>);
-
-		return <div key={item.id}>
-			{ nameDisplay }
-			<input type="checkbox" checked={item.done} onChange={(evt)=>{
-				this.props.actions.flipItem(item)
-			}}></input>
-		</div>
-	}
-}
+import TodoItemComponent from "./components/todoitem";
 
 let ItemView=ReactRedux.connect(
 	(state:{todos:TodoState,edit:EditState})=>({
@@ -81,7 +22,7 @@ let ItemView=ReactRedux.connect(
 	render() {
 		return <div style={ { backgroundColor:"#fff3f3" } }>{
 			this.props.items.map(
-				(item)=><Item key={item.id} item={ item } edit={this.props.edit} actions={ this.props.actions } ></Item>)
+				(item)=><TodoItemComponent key={item.id} item={ item } edit={this.props.edit} actions={ this.props.actions } />)
 		}</div>;
 	}
 });
