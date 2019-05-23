@@ -11,8 +11,9 @@ export function flagError(desc:string,action:any) {
 
 export function retry(action:any) {
 	return async function(dispatch:Redux.Dispatch) {
+		console.log("Retrying action "+action);
 		dispatch(flagError("",null));
-		dispatch(action);
+		dispatch(action());
 	};
 }
 

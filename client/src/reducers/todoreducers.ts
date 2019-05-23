@@ -30,11 +30,6 @@ export function todoReducer(state=initialState,action:Action):TodoState {
 					)
 			)};
 		}
-		case TodoConst.FLIP : {
-			return {...state,items:state.items.map( item=>{
-				return item.id===action.id?{...item,done:!item.done}:item;
-			} )}
-		}
 		default: {
 			console.log("Unhandled action:"+(action as any).type);
 			return state;

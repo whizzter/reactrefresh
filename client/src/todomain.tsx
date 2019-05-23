@@ -6,6 +6,7 @@ import * as ReactRedux from "react-redux";
 import {App,StatusContainer} from "./todoapp";
 import {todoReducer} from "./reducers/todoreducers";
 import {statusReducer} from "./reducers/statusreducer";
+import {editReducer} from "./reducers/editreducer";
 import * as TodoActions from "./actions/todoactions";
 
 import ReduxThunk from "redux-thunk";
@@ -13,7 +14,8 @@ import ReduxThunk from "redux-thunk";
 // add our stores
 const store=Redux.createStore( Redux.combineReducers({
 	todos: todoReducer,
-	status: statusReducer
+	status: statusReducer,
+	edit: editReducer
 }),Redux.applyMiddleware( ReduxThunk ));
 
 // dispatch an load action to get data from the server instead of any local data!

@@ -15,8 +15,9 @@ module.exports={
 		rules: [
 			{test: /\.tsx?$/,loader:"ts-loader"},
 			// {test: /\.tsx?$/,loader:"awesome-typescript-loader"},
-			{test: /\.css$/,loader:"style-loader!css-loader"}
-		]
+			{test: /\.css$/,loader:"style-loader!css-loader"},
+			{ test:/\.js$/,loader: "source-map-loader" }
+		]	
 //		preLoaders: [
 //			{ test:/\.js$/,loader: "source-map-loader" }
 //		]
