@@ -2,15 +2,14 @@ import * as Koa from "koa";
 import * as KoaRouter from "koa-router";
 
 import * as CoBody from "co-body";
-import COCOSQLITE from "coco-sqlite";
+import CocoSQLite from "coco-sqlite";
 
 import {TodoItem} from "../shared/sharedtododefs";
-import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from "constants";
 
 const app=new Koa();
 const router=new KoaRouter();
 
-let db=COCOSQLITE("db.sqlite");
+let db=CocoSQLite("db.sqlite");
 
 router.get("/hw",async (ctx) => {
 	ctx.body="Hello world";
@@ -25,6 +24,7 @@ router.get("/api/1/items",async (ctx) =>{
 		ctx.throw(500,err);
 	}
 });
+
 
 let maxItemSize=10000;
 
