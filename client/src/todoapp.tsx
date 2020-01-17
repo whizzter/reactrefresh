@@ -10,6 +10,8 @@ import { EditState } from "./defs/editdefs";
 
 import TodoItemComponent from "./components/todoitem";
 
+
+
 let ItemView=ReactRedux.connect(
 	(state:{todos:TodoState,edit:EditState})=>({
 		items:state.todos.items,
@@ -20,10 +22,13 @@ let ItemView=ReactRedux.connect(
 	})
 )(class ItemView extends React.Component<{items:TodoItem[],edit:EditState,actions:typeof TodoActions&typeof EditActions},{}> {
 	render() {
-		return <div style={ { backgroundColor:"#fff3f3" } }>{
-			this.props.items.map(
-				(item)=><TodoItemComponent key={item.id} item={ item } edit={this.props.edit} actions={ this.props.actions } />)
-		}</div>;
+		return <div style={ { backgroundColor:"#fff3f3" } }>
+			{
+				this.props.items.map(
+					(item)=><TodoItemComponent key={item.id} item={ item } edit={this.props.edit} actions={ this.props.actions } />)
+			}
+			<div onClick={ (evt)=>{ console.log("Uhh..") } } style={ { fontWeight:"bold" } }>[ ADD ]</div>
+		</div>;
 	}
 });
 

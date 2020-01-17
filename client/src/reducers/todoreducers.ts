@@ -38,7 +38,7 @@ function createActionsAndReducer
 	return {actions,reducer};
 }
 
-export const atodoReducer = createActionsAndReducer(initialState,"todos",{
+const ar = createActionsAndReducer(initialState,"todos",{
 	loaded(state,items:TodoItem[]) {
 		return {items};
 	},
@@ -49,3 +49,6 @@ export const atodoReducer = createActionsAndReducer(initialState,"todos",{
 		return {...state,items:state.items.map(mi=>mi.id===item.id?item:mi)}
 	}
 })
+
+export let { addItem, updated, loaded  } = ar.actions;
+export default ar.reducer;

@@ -2,8 +2,9 @@ import * as Redux from "redux";
 
 import TodoConst from "../const/todoconst";
 import {TodoItem,TodoState} from "../defs/tododefs";
-import { atodoReducer } from "../reducers/todoreducers"
+//import { atodoReducer } from "../reducers/todoreducers"
 import {flagLoading, flagError} from "./statusactions";
+import { loaded, updated } from "../reducers/todoreducers";
 
 async function fetchStrict(url:string,reqinit?:RequestInit):Promise<Response> {
 	let result=await fetch(url,reqinit);
@@ -29,7 +30,7 @@ export function load() {
 		let data:{items:TodoItem[]}=await fr.json();
 		console.log("Items!!:"+data);
 		dispatch(flagLoading(null));
-		dispatch(atodoReducer.actions.loaded(data.items));
+		dispatch(loaded(data.items));
 	};
 }
 
@@ -51,11 +52,11 @@ function updateItem(item:TodoItem,msg:string) {
 
 		console.log("Post fetch ok")
 		dispatch(flagLoading(null));
-		dispatch(atodoReducer.actions.updated(item));
+		dispatch(updated(item));
 	}
 }
 
-export let { addItem } = atodoReducer.actions;
+export { addItem } from "../reducers/todoreducers";
 
 export function flipItem(item:TodoItem) {
 	return updateItem({...item,done:!item.done},"Flipping item flag");
