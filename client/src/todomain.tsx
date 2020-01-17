@@ -4,7 +4,7 @@ import * as Redux from "redux";
 import * as ReactRedux from "react-redux";
 
 import {App,StatusContainer} from "./todoapp";
-import {todoReducer} from "./reducers/todoreducers";
+import {atodoReducer} from "./reducers/todoreducers";
 import {statusReducer} from "./reducers/statusreducer";
 import {editReducer} from "./reducers/editreducer";
 import * as TodoActions from "./actions/todoactions";
@@ -13,7 +13,7 @@ import ReduxThunk from "redux-thunk";
 
 // add our stores
 const store=Redux.createStore( Redux.combineReducers({
-	todos: todoReducer,
+	todos: atodoReducer.reducer,
 	status: statusReducer,
 	edit: editReducer
 }),Redux.applyMiddleware( ReduxThunk ));

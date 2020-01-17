@@ -2,6 +2,7 @@ import * as Redux from "redux";
 
 import TodoConst from "../const/todoconst";
 import {TodoItem,TodoState} from "../defs/tododefs";
+import { atodoReducer } from "../reducers/todoreducers"
 import {flagLoading, flagError} from "./statusactions";
 
 async function fetchStrict(url:string,reqinit?:RequestInit):Promise<Response> {
@@ -28,14 +29,9 @@ export function load() {
 		let data:{items:TodoItem[]}=await fr.json();
 		console.log("Items!!:"+data);
 		dispatch(flagLoading(null));
-		dispatch(loaded(data.items));
+		dispatch(atodoReducer.actions.loaded(data.items));
 	};
 }
-
-function loaded(items:TodoItem[]) {
-	return {type:TodoConst.LOADED as TodoConst.LOADED,items};
-}
-
 
 function updateItem(item:TodoItem,msg:string) {
 	console.log("Updateitem action runs!");
@@ -55,17 +51,11 @@ function updateItem(item:TodoItem,msg:string) {
 
 		console.log("Post fetch ok")
 		dispatch(flagLoading(null));
-		dispatch(updated(item));
+		dispatch(atodoReducer.actions.updated(item));
 	}
 }
 
-function updated(item:TodoItem) {
-	return {type:TodoConst.UPDATED as TodoConst.UPDATED,item};
-}
-
-export function addItem(item:TodoItem) {
-	return {type:TodoConst.ADD as TodoConst.ADD,data:item}
-}
+export let { addItem } = atodoReducer.actions;
 
 export function flipItem(item:TodoItem) {
 	return updateItem({...item,done:!item.done},"Flipping item flag");
@@ -74,8 +64,3 @@ export function flipItem(item:TodoItem) {
 export function changeText(item:TodoItem,text:string) {
 	return updateItem({...item,name:text},"changing item text");
 }
-
-export type Action=
-	ReturnType<typeof addItem>|
-	ReturnType<typeof loaded>|
-	ReturnType<typeof updated>;
